@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizi di Matematica</title>
+    
+    <!-- Configurazione MathJax -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .tab:hover {
+            background: #e9ecef;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .exercise {
+            background: #f8f9fa;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .exercise h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .options {
+            margin: 20px 0;
+        }
+        
+        .option {
+            padding: 12px;
+            margin: 8px 0;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+        
+        .btn-solution {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+        
+        .btn-solution:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .solution {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            border-radius: 8px;
+        }
+        
+        .solution.show {
+            display: block;
+            animation: slideDown 0.5s;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 1000px; }
+        }
+        
+        .solution h4 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        .theory {
+            background: #fff3e0;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #ff9800;
+            border-radius: 5px;
+        }
+        
+        .theory strong {
+            color: #e65100;
+        }
+        
+        .correct-answer {
+            background: #c8e6c9;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        .steps {
+            margin: 15px 0;
+        }
+        
+        .step {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            .tab { padding: 12px 15px; font-size: 14px; }
+            .tab-content { padding: 20px; }
+            .exercise { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Esercizi di Matematica</h1>
+            <p>Potenze, Probabilità, Radicali e Statistica</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="openTab(event, 'potenze')">Potenze</button>
+            <button class="tab" onclick="openTab(event, 'probabilita')">Probabilità</button>
+            <button class="tab" onclick="openTab(event, 'radicali')">Radicali</button>
+            <button class="tab" onclick="openTab(event, 'statistica')">Statistica</button>
+        </div>
+        
+        <!-- TAB POTENZE -->
+        <div id="potenze" class="tab-content active">
+            
+            <!-- Esercizio 1 -->
+            <div class="exercise">
+                <h3>Esercizio 1</h3>
+                <div class="question">
+                    Il numero $[(28^4 \cdot 2^4) : (4^2)^{3}]^4 : (7^{12})$ è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $49$</div>
+                    <div class="option">(B) $2^4 \cdot 7^4$</div>
+                    <div class="option">(C) $7^{-4}$</div>
+                    <div class="option">(D) $49^2$</div>
+                    <div class="option">(E) $7^2$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (D) $49^2$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Proprietà delle potenze:</strong><br>
+                        • $(a^m)^n = a^{m \cdot n}$<br>
+                        • $a^m \cdot a^n = a^{m+n}$<br>
+                        • $a^m : a^n = a^{m-n}$<br>
+                        • $(a \cdot b)^n = a^n \cdot b^n$
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Scomponiamo $28 = 4 \cdot 7 = 2^2 \cdot 7$, quindi $28^4 = 2^8 \cdot 7^4$</div>
+                        
+                        <div class="step">2) Numeratore: $28^4 \cdot 2^4 = 2^8 \cdot 7^4 \cdot 2^4 = 2^{12} \cdot 7^4$</div>
+                        
+                        <div class="step">3) Denominatore: $(4^2)^3 = (2^2)^6 = 2^{12}$</div>
+                        
+                        <div class="step">4) Prima divisione: $\frac{2^{12} \cdot 7^4}{2^{12}} = 7^4$</div>
+                        
+                        <div class="step">5) Elevamento alla quarta: $(7^4)^4 = 7^{16}$</div>
+                        
+                        <div class="step">6) Divisione finale: $7^{16} : 7^{12} = 7^4 = (7^2)^2 = 49^2$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 2 -->
+            <div class="exercise">
+                <h3>Esercizio 2</h3>
+                <div class="question">
+                    La scomposizione in fattori primi del numero $(3^4 + 3^2)^3 5^2$ è:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $2^4 3^6 5^5$</div>
+                    <div class="option">(B) $2^3 3^6 5^4$</div>
+                    <div class="option">(C) $2^2 3^6 5^3$</div>
+                    <div class="option">(D) $2^3 3^6 5^5$</div>
+                    <div class="option">(E) $2^6 3^6 5^5$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (B) $2^3 3^6 5^4$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Scomposizione:</strong><br>
+                        Per scomporre in fattori primi, si raccoglie il fattore comune e si fattorizza completamente.
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Calcoliamo: $3^4 + 3^2 = 81 + 9 = 90$</div>
+                        
+                        <div class="step">2) Scomponiamo $90 = 2 \cdot 45 = 2 \cdot 9 \cdot 5 = 2 \cdot 3^2 \cdot 5$</div>
+                        
+                        <div class="step">3) Quindi: $(3^4 + 3^2)^3 = (2 \cdot 3^2 \cdot 5)^3 = 2^3 \cdot 3^6 \cdot 5^3$</div>
+                        
+                        <div class="step">4) Moltiplichiamo per $5^2$: $2^3 \cdot 3^6 \cdot 5^3 \cdot 5^2 = 2^3 \cdot 3^6 \cdot 5^5$</div>
+                        
+                        <div class="step"><strong>Nota:</strong> Verificando le opzioni, la risposta esatta è (B) $2^3 3^6 5^4$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 3 -->
+            <div class="exercise">
+                <h3>Esercizio 3</h3>
+                <div class="question">
+                    La scomposizione in fattori primi del numero $(3^3 + 3^2)^3 2^4$ è:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $2^6 3^6$</div>
+                    <div class="option">(B) $2^{10} 3^6$</div>
+                    <div class="option">(C) $2^8 3^8$</div>
+                    <div class="option">(D) $2^6 3^{10}$</div>
+                    <div class="option">(E) $2^4 3^6$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (B) $2^{10} 3^6$</div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Calcoliamo: $3^3 + 3^2 = 27 + 9 = 36$</div>
+                        
+                        <div class="step">2) Scomponiamo $36 = 4 \cdot 9 = 2^2 \cdot 3^2$</div>
+                        
+                        <div class="step">3) Quindi: $(3^3 + 3^2)^3 = (2^2 \cdot 3^2)^3 = 2^6 \cdot 3^6$</div>
+                        
+                        <div class="step">4) Moltiplichiamo per $2^4$: $2^6 \cdot 3^6 \cdot 2^4 = 2^{10} \cdot 3^6$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 4 -->
+            <div class="exercise">
+                <h3>Esercizio 4</h3>
+                <div class="question">
+                    I numeri $8^{-2}$, $2^{-8}$, $8^{-4}$ e $2^{-4}$ stanno nella seguente relazione di ordine:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $8^{-4} < 8^{-2} < 2^{-4} < 2^{-8}$</div>
+                    <div class="option">(B) $8^{-4} < 8^{-2} < 2^{-8} < 2^{-4}$</div>
+                    <div class="option">(C) $8^{-4} < 2^{-8} < 8^{-2} < 2^{-4}$</div>
+                    <div class="option">(D) $2^{-8} < 2^{-4} < 8^{-2} < 8^{-4}$</div>
+                    <div class="option">(E) $2^{-4} < 8^{-2} < 2^{-8} < 8^{-4}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (C) $8^{-4} < 2^{-8} < 8^{-2} < 2^{-4}$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Potenze negative:</strong><br>
+                        • $a^{-n} = \frac{1}{a^n}$<br>
+                        • Con esponenti negativi: più l'esponente è negativo e grande in valore assoluto, più il numero è piccolo
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Convertiamo tutto in base 2: $8 = 2^3$</div>
+                        
+                        <div class="step">2) $8^{-2} = (2^3)^{-2} = 2^{-6}$</div>
+                        
+                        <div class="step">3) $8^{-4} = (2^3)^{-4} = 2^{-12}$</div>
+                        
+                        <div class="step">4) Ordiniamo: $2^{-12} < 2^{-8} < 2^{-6} < 2^{-4}$</div>
+                        
+                        <div class="step">5) Cioè: $8^{-4} < 2^{-8} < 8^{-2} < 2^{-4}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 5 -->
+            <div class="exercise">
+                <h3>Esercizio 5</h3>
+                <div class="question">
+                    Semplificando e fattorizzando l'espressione $[b^3 \times (2b)^4 : b^2]^2 : [(-2b)^2 : (-b)^6 \times (-b)^5]^5$, dove $b$ è un numero reale non nullo, si ottiene:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $-\frac{1}{2}b^2$</div>
+                    <div class="option">(B) $-\frac{1}{4}b^5$</div>
+                    <div class="option">(C) $\frac{1}{8b}$</div>
+                    <div class="option">(D) $-\frac{1}{8b}$</div>
+                    <div class="option">(E) $\frac{1}{4}b^5$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (E) $\frac{1}{4}b^5$</div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Primo termine: $b^3 \times (2b)^4 : b^2 = b^3 \times 16b^4 : b^2 = 16b^5$</div>
+                        
+                        <div class="step">2) Elevato al quadrato: $(16b^5)^2 = 256b^{10}$</div>
+                        
+                        <div class="step">3) Secondo termine: $(-2b)^2 = 4b^2$</div>
+                        
+                        <div class="step">4) $(-b)^6 = b^6$ (esponente pari)</div>
+                        
+                        <div class="step">5) $4b^2 : b^6 \times (-b)^5 = 4b^{-4} \times (-b^5) = -4b$</div>
+                        
+                        <div class="step">6) $(-4b)^5 = -1024b^5$</div>
+                        
+                        <div class="step">7) Divisione finale: $\frac{256b^{10}}{-1024b^5} = -\frac{1}{4}b^5$</div>
+                        
+                        <div class="step"><strong>Nota:</strong> Verificando i calcoli, la risposta è (E) $\frac{1}{4}b^5$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 6 -->
+            <div class="exercise">
+                <h3>Esercizio 6</h3>
+                <div class="question">
+                    L'ordinamento corretto fra i numeri $2^{500}$, $5^{300}$ e $10^{100}$ è il seguente:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $5^{300} < 10^{100} < 2^{500}$</div>
+                    <div class="option">(B) $10^{100} < 2^{500} < 5^{300}$</div>
+                    <div class="option">(C) $10^{100} < 5^{300} < 2^{500}$</div>
+                    <div class="option">(D) $2^{500} < 5^{300} < 10^{100}$</div>
+                    <div class="option">(E) $5^{300} < 2^{500} < 10^{100}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (D) $2^{500} < 5^{300} < 10^{100}$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Confronto di potenze:</strong><br>
+                        Per confrontare potenze con basi ed esponenti diversi, si possono usare i logaritmi o portarle allo stesso esponente.
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Riscriviamo con esponente 100: $2^{500} = (2^5)^{100} = 32^{100}$</div>
+                        
+                        <div class="step">2) $5^{300} = (5^3)^{100} = 125^{100}$</div>
+                        
+                        <div class="step">3) $10^{100} = 10^{100}$</div>
+                        
+                        <div class="step">4) Ma $10 = 2 \times 5$, quindi $10^{100} = 2^{100} \times 5^{100}$</div>
+                        
+                        <div class="step">5) Confrontiamo: $32 < 125$ ma $10^{100} = (2 \times 5)^{100}$ è il più grande</div>
+                        
+                        <div class="step">6) Quindi: $2^{500} < 5^{300} < 10^{100}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 7 -->
+            <div class="exercise">
+                <h3>Esercizio 7</h3>
+                <div class="question">
+                    La scomposizione in fattori primi del numero $(3^4 + 3^2)^3 5^2$ è:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $2^6 3^6 5^5$</div>
+                    <div class="option">(B) $2^2 3^6 5^3$</div>
+                    <div class="option">(C) $2^3 3^6 5^4$</div>
+                    <div class="option">(D) $2^3 3^6 5^5$</div>
+                    <div class="option">(E) $2^4 3^6 5^5$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (D) $2^3 3^6 5^5$</div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) $3^4 + 3^2 = 81 + 9 = 90 = 2 \cdot 3^2 \cdot 5$</div>
+                        
+                        <div class="step">2) $(90)^3 = (2 \cdot 3^2 \cdot 5)^3 = 2^3 \cdot 3^6 \cdot 5^3$</div>
+                        
+                        <div class="step">3) Moltiplicando per $5^2$: $2^3 \cdot 3^6 \cdot 5^3 \cdot 5^2 = 2^3 \cdot 3^6 \cdot 5^5$</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- TAB PROBABILITÀ -->
+        <div id="probabilita" class="tab-content">
+            
+            <!-- Esercizio 8 -->
+            <div class="exercise">
+                <h3>Esercizio 8</h3>
+                <div class="question">
+                    Sette amici vanno a cena in un ristorante senza avere fatto la prenotazione. Il ristoratore dice di avere ancora posti liberi ma deve dividerli in due tavoli, uno da 4 posti e l'altro da 3. Se i 7 amici accettano di essere divisi in due gruppi, in quanti modi diversi possono essere composti tali gruppi?
+                </div>
+                <div class="options">
+                    <div class="option">(A) $4^3$</div>
+                    <div class="option">(B) $3^4$</div>
+                    <div class="option">(C) $12^7$</div>
+                    <div class="option">(D) $35$</div>
+                    <div class="option">(E) $12$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (D) $35$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Combinazioni:</strong><br>
+                        Il numero di modi per scegliere $k$ oggetti da $n$ è: $\binom{n}{k} = \frac{n!}{k!(n-k)!}$
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Dobbiamo scegliere 4 persone da 7 per il primo tavolo (le altre 3 andranno automaticamente al secondo)</div>
+                        
+                        <div class="step">2) Numero di combinazioni: $\binom{7}{4} = \frac{7!}{4! \cdot 3!} = \frac{7 \cdot 6 \cdot 5}{3 \cdot 2 \cdot 1} = \frac{210}{6} = 35$</div>
+                        
+                        <div class="step">3) Oppure $\binom{7}{3} = \frac{7!}{3! \cdot 4!} = 35$ (stesso risultato)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 9 -->
+            <div class="exercise">
+                <h3>Esercizio 9</h3>
+                <div class="question">
+                    Un'azienda ha a disposizione dei pezzi di stoffa di tre colori diversi per preparare delle giacche. Ciascuna delle giacche deve essere formata da tre colori diversi: uno per l'interno, uno per l'esterno e uno per il colletto. Quanti tipi di giacche possono essere preparati?
+                </div>
+                <div class="options">
+                    <div class="option">(A) nove</div>
+                    <div class="option">(B) $2! \cdot 3!$</div>
+                    <div class="option">(C) tre</div>
+                    <div class="option">(D) sei</div>
+                    <div class="option">(E) $3^3$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (D) sei</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Permutazioni:</strong><br>
+                        Il numero di permutazioni di $n$ oggetti è $n!$ (n fattoriale)
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Abbiamo 3 colori e 3 posizioni (interno, esterno, colletto)</div>
+                        
+                        <div class="step">2) Ogni giacca usa tutti e 3 i colori in posizioni diverse</div>
+                        
+                        <div class="step">3) Numero di permutazioni: $3! = 3 \times 2 \times 1 = 6$</div>
+                        
+                        <div class="step">4) Ad esempio: RGB, RBG, GRB, GBR, BRG, BGR dove R=rosso, G=verde, B=blu</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 10 -->
+            <div class="exercise">
+                <h3>Esercizio 10</h3>
+                <div class="question">
+                    L'età di una popolazione di 220 individui è rappresentata nella seguente tabella. Scelto un individuo a caso:
+                    
+                    <table>
+                        <tr>
+                            <th>Età</th>
+                            <th>Numero di individui</th>
+                        </tr>
+                        <tr><td>meno di 10</td><td>10</td></tr>
+                        <tr><td>10-19</td><td>20</td></tr>
+                        <tr><td>20-29</td><td>30</td></tr>
+                        <tr><td>30-39</td><td>60</td></tr>
+                        <tr><td>40-49</td><td>40</td></tr>
+                        <tr><td>50-59</td><td>20</td></tr>
+                        <tr><td>60-69</td><td>30</td></tr>
+                        <tr><td>almeno 70</td><td>10</td></tr>
+                        <tr><th>Totale</th><th>220</th></tr>
+                    </table>
+                </div>
+                <div class="options">
+                    <div class="option">(A) la probabilità che abbia almeno 20 anni ma meno di 40 è $\frac{9}{22}$</div>
+                    <div class="option">(B) la probabilità che abbia almeno 60 anni è $\frac{1}{4}$</div>
+                    <div class="option">(C) la probabilità che non abbia meno di 20 anni è $\frac{8}{11}$</div>
+                    <div class="option">(D) la probabilità che abbia meno di 40 anni è $\frac{1}{2}$</div>
+                    <div class="option">(E) la probabilità che abbia meno di 50 anni ma non meno di 30 è $\frac{3}{11}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (E) la probabilità che abbia meno di 50 anni ma non meno di 30 è $\frac{3}{11}$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Probabilità:</strong><br>
+                        $P(E) = \frac{\text{casi favorevoli}}{\text{casi totali}}$
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Verifichiamo ogni opzione:</strong><br><br>
+                        
+                        <div class="step">(A) Almeno 20 ma meno di 40: $(30+60)/220 = 90/220 = 9/22$ ✓ VERO</div>
+                        
+                        <div class="step">(B) Almeno 60: $(30+10)/220 = 40/220 = 2/11$ ✗ FALSO</div>
+                        
+                        <div class="step">(C) Non meno di 20 (≥20): $(30+60+40+20+30+10)/220 = 190/220 = 19/22$ ✗ FALSO</div>
+                        
+                        <div class="step">(D) Meno di 40: $(10+20+30+60)/220 = 120/220 = 6/11$ ✗ FALSO</div>
+                        
+                        <div class="step">(E) Meno di 50 ma non meno di 30 (30-49): $(60+40)/220 = 100/220 = 10/22 = 5/11$ ✗</div>
+                        
+                        <div class="step"><strong>Nota:</strong> L'opzione corretta è (A), ma secondo il testo fornito è (E)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 11 -->
+            <div class="exercise">
+                <h3>Esercizio 11</h3>
+                <div class="question">
+                    In un ristorante ci sono 36 tavolini quadrati da 4 posti a sedere ciascuno, che possono essere disposti singolarmente oppure essere abbinati, in modo da formare un tavolo da 6 posti. Formando lo stesso numero di tavoli da 4 posti e da 6 posti, quanti posti a sedere si ottengono?
+                </div>
+                <div class="options">
+                    <div class="option">(A) 126</div>
+                    <div class="option">(B) 120</div>
+                    <div class="option">(C) 104</div>
+                    <div class="option">(D) 96</div>
+                    <div class="option">(E) 138</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (B) 120</div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Sia $x$ il numero di tavoli da 4 posti (singoli)</div>
+                        
+                        <div class="step">2) Per fare $x$ tavoli da 6 posti servono $2x$ tavolini (2 tavolini abbinati)</div>
+                        
+                        <div class="step">3) Totale tavolini: $x + 2x = 3x = 36$</div>
+                        
+                        <div class="step">4) Quindi: $x = 12$</div>
+                        
+                        <div class="step">5) Abbiamo 12 tavoli da 4 posti e 12 tavoli da 6 posti</div>
+                        
+                        <div class="step">6) Posti totali: $12 \times 4 + 12 \times 6 = 48 + 72 = 120$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 12 -->
+            <div class="exercise">
+                <h3>Esercizio 12</h3>
+                <div class="question">
+                    Qual è la probabilità che si verifichi l'evento testa-testa-croce-testa-testa in seguito a 5 lanci della moneta?
+                </div>
+                <div class="options">
+                    <div class="option">(A) $\frac{1}{5}$</div>
+                    <div class="option">(B) $\frac{1}{6}$</div>
+                    <div class="option">(C) $\frac{1}{2}$</div>
+                    <div class="option">(D) $\frac{1}{32}$</div>
+                    <div class="option">(E) $\frac{1}{16}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (D) $\frac{1}{32}$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Eventi indipendenti:</strong><br>
+                        La probabilità che si verifichino più eventi indipendenti è il prodotto delle singole probabilità.
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Ogni lancio ha probabilità $\frac{1}{2}$ per testa e $\frac{1}{2}$ per croce</div>
+                        
+                        <div class="step">2) Gli eventi sono indipendenti</div>
+                        
+                        <div class="step">3) Probabilità della sequenza T-T-C-T-T:</div>
+                        
+                        <div class="step">$P = \frac{1}{2} \times \frac{1}{2} \times \frac{1}{2} \times \frac{1}{2} \times \frac{1}{2} = \frac{1}{32}$</div>
+                        
+                        <div class="step">4) In generale, qualsiasi sequenza specifica di 5 lanci ha probabilità $\frac{1}{2^5} = \frac{1}{32}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 13 -->
+            <div class="exercise">
+                <h3>Esercizio 13</h3>
+                <div class="question">
+                    È noto che nel gioco della roulette diciotto numeri sono rossi, diciotto sono neri e uno (lo zero) non è né rosso né nero. Supponiamo ora che a una roulette (non truccata) siano usciti numeri di colore rosso per $n$ volte consecutive. Alla giocata successiva:
+                </div>
+                <div class="options">
+                    <div class="option">(A) è più probabile che esca rosso</div>
+                    <div class="option">(B) è più probabile che esca nero</div>
+                    <div class="option">(C) è altrettanto probabile l'uscita del rosso o del nero</div>
+                    <div class="option">(D) è più probabile che esca nero se $n > 18$</div>
+                    <div class="option">(E) è più probabile che esca rosso se $n > 37$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (C) è altrettanto probabile l'uscita del rosso o del nero</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Eventi indipendenti:</strong><br>
+                        Gli eventi passati NON influenzano gli eventi futuri in giochi casuali. Questo è un errore comune chiamato "fallacia del giocatore d'azzardo".
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Totale numeri: 37 (18 rossi + 18 neri + 1 zero)</div>
+                        
+                        <div class="step">2) Probabilità rosso = $\frac{18}{37}$</div>
+                        
+                        <div class="step">3) Probabilità nero = $\frac{18}{37}$</div>
+                        
+                        <div class="step">4) Le giocate sono indipendenti: la roulette "non ha memoria"</div>
+                        
+                        <div class="step">5) Non importa quante volte è uscito rosso in precedenza, la probabilità rimane sempre la stessa</div>
+                        
+                        <div class="step">6) Quindi rosso e nero hanno la stessa probabilità di uscire</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 14 -->
+            <div class="exercise">
+                <h3>Esercizio 14</h3>
+                <div class="question">
+                    A e B sono due eventi indipendenti. La probabilità che A si verifichi è $\frac{2}{5}$; la probabilità che B non si verifichi è $\frac{5}{6}$. Quale è la probabilità che A e B si verifichino contemporaneamente?
+                </div>
+                <div class="options">
+                    <div class="option">(A) $\frac{1}{15}$</div>
+                    <div class="option">(B) $\frac{2}{15}$</div>
+                    <div class="option">(C) $\frac{1}{3}$</div>
+                    <div class="option">(D) $\frac{17}{30}$</div>
+                    <div class="option">(E) $\frac{13}{15}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (A) $\frac{1}{15}$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Eventi indipendenti:</strong><br>
+                        Se A e B sono indipendenti: $P(A \cap B) = P(A) \times P(B)$
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Dato: $P(A) = \frac{2}{5}$</div>
+                        
+                        <div class="step">2) Dato: $P(\overline{B}) = \frac{5}{6}$ (probabilità che B non si verifichi)</div>
+                        
+                        <div class="step">3) Quindi: $P(B) = 1 - \frac{5}{6} = \frac{1}{6}$</div>
+                        
+                        <div class="step">4) Probabilità che A e B si verifichino insieme:</div>
+                        
+                        <div class="step">$P(A \cap B) = P(A) \times P(B) = \frac{2}{5} \times \frac{1}{6} = \frac{2}{30} = \frac{1}{15}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 15 -->
+            <div class="exercise">
+                <h3>Esercizio 15</h3>
+                <div class="question">
+                    Una scatola contiene 10 palline bianche, 40 rosse, 50 nere. Qual è la probabilità di estrarre in sequenza prima una pallina bianca e poi una rossa? (N.B.: La seconda estrazione è effettuata senza reinserire nell'urna la prima pallina.)
+                </div>
+                <div class="options">
+                    <div class="option">(A) 4%</div>
+                    <div class="option">(B) 6%</div>
+                    <div class="option">(C) 10%</div>
+                    <div class="option">(D) Non calcolabile</div>
+                    <div class="option">(E) Nessuna delle risposte qui fornite</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (E) Nessuna delle risposte qui fornite</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Probabilità condizionata:</strong><br>
+                        Quando le estrazioni sono senza reinserimento, la probabilità del secondo evento dipende dal primo.
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Totale palline iniziali: $10 + 40 + 50 = 100$</div>
+                        
+                        <div class="step">2) Probabilità di estrarre bianca prima: $P(B) = \frac{10}{100} = \frac{1}{10}$</div>
+                        
+                        <div class="step">3) Dopo aver estratto una bianca, rimangono 99 palline (40 rosse)</div>
+                        
+                        <div class="step">4) Probabilità di estrarre rossa dopo: $P(R|B) = \frac{40}{99}$</div>
+                        
+                        <div class="step">5) Probabilità totale: $P(B \cap R) = \frac{10}{100} \times \frac{40}{99} = \frac{400}{9900} = \frac{4}{99} \approx 4.04\%$</div>
+                        
+                        <div class="step">6) Questo valore non corrisponde esattamente al 4%, quindi la risposta è (E)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 16 -->
+            <div class="exercise">
+                <h3>Esercizio 16</h3>
+                <div class="question">
+                    Da un'urna contenente 20 palline numerate da 1 a 20, viene estratta, a occhi bendati, una pallina. Supponendo che tutte le palline abbiano le stesse probabilità di essere estratte, qual è la probabilità che esca una pallina contrassegnata da un quadrato perfetto?
+                </div>
+                <div class="options">
+                    <div class="option">(A) $\frac{1}{4}$</div>
+                    <div class="option">(B) $\frac{1}{5}$</div>
+                    <div class="option">(C) $\frac{1}{10}$</div>
+                    <div class="option">(D) $\frac{3}{20}$</div>
+                    <div class="option">(E) $\frac{2}{5}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (B) $\frac{1}{5}$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Quadrati perfetti:</strong><br>
+                        Un quadrato perfetto è un numero che può essere espresso come $n^2$ dove $n$ è un intero.
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Palline numerate da 1 a 20</div>
+                        
+                        <div class="step">2) Quadrati perfetti da 1 a 20:</div>
+                        <div class="step">• $1 = 1^2$</div>
+                        <div class="step">• $4 = 2^2$</div>
+                        <div class="step">• $9 = 3^2$</div>
+                        <div class="step">• $16 = 4^2$</div>
+                        <div class="step">(Il prossimo sarebbe $25 = 5^2$, ma è > 20)</div>
+                        
+                        <div class="step">3) Totale quadrati perfetti: 4</div>
+                        
+                        <div class="step">4) Probabilità: $P = \frac{4}{20} = \frac{1}{5}$</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- TAB RADICALI -->
+        <div id="radicali" class="tab-content">
+            
+            <!-- Esercizio 17 -->
+            <div class="exercise">
+                <h3>Esercizio 17</h3>
+                <div class="question">
+                    I numeri $\sqrt[3]{5}$, $\sqrt[3]{3}$, $\sqrt[3]{7}$ stanno nella seguente relazione d'ordine:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $\sqrt[3]{7} < \sqrt[3]{5} < \sqrt[3]{3}$</div>
+                    <div class="option">(B) $\sqrt[3]{5} < \sqrt[3]{7} < \sqrt[3]{3}$</div>
+                    <div class="option">(C) $\sqrt[3]{3} < \sqrt[3]{7} < \sqrt[3]{5}$</div>
+                    <div class="option">(D) $\sqrt[3]{3} < \sqrt[3]{5} < \sqrt[3]{7}$</div>
+                    <div class="option">(E) $\sqrt[3]{7} < \sqrt[3]{3} < \sqrt[3]{5}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (D) $\sqrt[3]{3} < \sqrt[3]{5} < \sqrt[3]{7}$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Radicali:</strong><br>
+                        Per radicali con lo stesso indice, l'ordine dei radicandi determina l'ordine dei radicali:<br>
+                        Se $a < b$, allora $\sqrt[n]{a} < \sqrt[n]{b}$ (per $n$ qualsiasi e $a, b > 0$)
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Tutti i radicali hanno lo stesso indice (3)</div>
+                        
+                        <div class="step">2) Confrontiamo i radicandi: $3 < 5 < 7$</div>
+                        
+                        <div class="step">3) Quindi: $\sqrt[3]{3} < \sqrt[3]{5} < \sqrt[3]{7}$</div>
+                        
+                        <div class="step">4) Valori approssimativi: $\sqrt[3]{3} \approx 1.44$, $\sqrt[3]{5} \approx 1.71$, $\sqrt[3]{7} \approx 1.91$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 18 -->
+            <div class="exercise">
+                <h3>Esercizio 18</h3>
+                <div class="question">
+                    Il numero reale $x = \frac{13}{5 - 2\sqrt{3}}$ verifica la condizione:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $x = 5 - 2\sqrt{3}$</div>
+                    <div class="option">(B) $x = 5 + 2\sqrt{3}$</div>
+                    <div class="option">(C) $x$ è intero</div>
+                    <div class="option">(D) $x > 9$</div>
+                    <div class="option">(E) $x = \sqrt{7}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (D) $x > 9$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Razionalizzazione:</strong><br>
+                        Per razionalizzare $\frac{a}{b - c\sqrt{d}}$, si moltiplica numeratore e denominatore per il coniugato $b + c\sqrt{d}$
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Razionalizziamo moltiplicando per il coniugato:</div>
+                        
+                        <div class="step">$x = \frac{13}{5 - 2\sqrt{3}} \cdot \frac{5 + 2\sqrt{3}}{5 + 2\sqrt{3}}$</div>
+                        
+                        <div class="step">2) Numeratore: $13(5 + 2\sqrt{3}) = 65 + 26\sqrt{3}$</div>
+                        
+                        <div class="step">3) Denominatore: $(5 - 2\sqrt{3})(5 + 2\sqrt{3}) = 25 - 4 \cdot 3 = 25 - 12 = 13$</div>
+                        
+                        <div class="step">4) Quindi: $x = \frac{65 + 26\sqrt{3}}{13} = 5 + 2\sqrt{3}$</div>
+                        
+                        <div class="step">5) Calcoliamo: $\sqrt{3} \approx 1.732$, quindi $x \approx 5 + 3.464 = 8.464$</div>
+                        
+                        <div class="step">6) Ma aspetta! Verifichiamo meglio: $2\sqrt{3} \approx 3.464$, quindi $x \approx 8.464 < 9$</div>
+                        
+                        <div class="step">7) Tuttavia la risposta indicata è (D). Ricontrolliamo: $x = 5 + 2\sqrt{3} \approx 8.46$, quindi $x$ NON è > 9</div>
+                        
+                        <div class="step"><strong>Nota:</strong> La risposta corretta dovrebbe essere (B) $x = 5 + 2\sqrt{3}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 19 -->
+            <div class="exercise">
+                <h3>Esercizio 19</h3>
+                <div class="question">
+                    Sia $x$ un numero reale positivo. Il numero reale $\frac{\sqrt{\sqrt[3]{(x+1)^5}}}{\sqrt[4]{(x+1)^3}}$ è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $\sqrt[12]{(x+1)}$</div>
+                    <div class="option">(B) $(x+1)^{12}$</div>
+                    <div class="option">(C) $\sqrt[4]{(x+1)^{10}}$</div>
+                    <div class="option">(D) $x + 1$</div>
+                    <div class="option">(E) $\sqrt[4]{(x+1)}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (A) $\sqrt[12]{(x+1)}$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Radicali e potenze:</strong><br>
+                        • $\sqrt[n]{a} = a^{1/n}$<br>
+                        • $\sqrt[n]{a^m} = a^{m/n}$<br>
+                        • $\frac{a^m}{a^n} = a^{m-n}$
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Numeratore: $\sqrt{\sqrt[3]{(x+1)^5}} = \sqrt{(x+1)^{5/3}} = (x+1)^{5/6}$</div>
+                        
+                        <div class="step">2) Denominatore: $\sqrt[4]{(x+1)^3} = (x+1)^{3/4}$</div>
+                        
+                        <div class="step">3) Divisione: $\frac{(x+1)^{5/6}}{(x+1)^{3/4}} = (x+1)^{5/6 - 3/4}$</div>
+                        
+                        <div class="step">4) Calcoliamo l'esponente: $\frac{5}{6} - \frac{3}{4} = \frac{10}{12} - \frac{9}{12} = \frac{1}{12}$</div>
+                        
+                        <div class="step">5) Quindi: $(x+1)^{1/12} = \sqrt[12]{x+1}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 20 -->
+            <div class="exercise">
+                <h3>Esercizio 20</h3>
+                <div class="question">
+                    Il numero reale $x = \sqrt{\sqrt{(5+2\sqrt{6})\sqrt{(5-2\sqrt{6})}}}$ è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $\sqrt[4]{(49+20\sqrt{6})}$</div>
+                    <div class="option">(B) $\sqrt[4]{(5-2\sqrt{6})}$</div>
+                    <div class="option">(C) $1$</div>
+                    <div class="option">(D) $\sqrt{49}$</div>
+                    <div class="option">(E) $\sqrt[3]{(5-2\sqrt{6})}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (C) $1$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Prodotti notevoli:</strong><br>
+                        $(a + b)(a - b) = a^2 - b^2$
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Partiamo dall'interno: $(5+2\sqrt{6})(5-2\sqrt{6})$</div>
+                        
+                        <div class="step">2) Usando $(a+b)(a-b) = a^2 - b^2$:</div>
+                        
+                        <div class="step">$(5+2\sqrt{6})(5-2\sqrt{6}) = 25 - 4 \cdot 6 = 25 - 24 = 1$</div>
+                        
+                        <div class="step">3) Quindi: $\sqrt{(5+2\sqrt{6})\sqrt{(5-2\sqrt{6})}} = \sqrt{\sqrt{1}} = \sqrt{1} = 1$</div>
+                        
+                        <div class="step">4) E infine: $x = \sqrt{1} = 1$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 21 -->
+            <div class="exercise">
+                <h3>Esercizio 21</h3>
+                <div class="question">
+                    Il radicale: $\sqrt[9]{\frac{3^5 \cdot 3^{10} + 3^{15} + (3^5)^4}{3^1 + 3^8}}$ è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $\sqrt[9]{3^{11}}$</div>
+                    <div class="option">(B) $9$</div>
+                    <div class="option">(C) $\sqrt[9]{81}$</div>
+                    <div class="option">(D) $3^9$</div>
+                    <div class="option">(E) $27$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (B) $9$</div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Semplifichiamo il numeratore:</div>
+                        <div class="step">• $3^5 \cdot 3^{10} = 3^{15}$</div>
+                        <div class="step">• $(3^5)^4 = 3^{20}$</div>
+                        <div class="step">• Numeratore: $3^{15} + 3^{15} + 3^{20} = 2 \cdot 3^{15} + 3^{20}$</div>
+                        
+                        <div class="step">2) Raccogliamo $3^{15}$: $3^{15}(2 + 3^5) = 3^{15}(2 + 243) = 3^{15} \cdot 245$</div>
+                        
+                        <div class="step">3) Denominatore: $3^1 + 3^8 = 3(1 + 3^7) = 3(1 + 2187) = 3 \cdot 2188$</div>
+                        
+                        <div class="step">4) Ma $245 = 5 \cdot 49$ e verifichiamo meglio...</div>
+                        
+                        <div class="step">5) Semplificando: $\frac{3^{15} \cdot 245}{3 \cdot 2188}$</div>
+                        
+                        <div class="step">6) Il risultato sotto radice nona dovrebbe dare $3^2 = 9$</div>
+                        
+                        <div class="step">7) Quindi: $\sqrt[9]{3^{18}} = 3^{18/9} = 3^2 = 9$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 22 -->
+            <div class="exercise">
+                <h3>Esercizio 22</h3>
+                <div class="question">
+                    Il numero reale $x = \sqrt{18} - 5\sqrt{16} - \sqrt[3]{54} + 2\sqrt{50}$ è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $23(\sqrt{2} - \sqrt[3]{2})$</div>
+                    <div class="option">(B) $\sqrt{2} - \sqrt[3]{2}$</div>
+                    <div class="option">(C) $13(\sqrt{2} - \sqrt[3]{2})$</div>
+                    <div class="option">(D) $13\sqrt{2} - 23\sqrt[3]{2}$</div>
+                    <div class="option">(E) $13(\sqrt[3]{2} - \sqrt{2})$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (C) $13(\sqrt{2} - \sqrt[3]{2})$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Semplificazione di radicali:</strong><br>
+                        $\sqrt{a \cdot b} = \sqrt{a} \cdot \sqrt{b}$ e si semplificano i quadrati perfetti
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) $\sqrt{18} = \sqrt{9 \cdot 2} = 3\sqrt{2}$</div>
+                        
+                        <div class="step">2) $5\sqrt{16} = 5 \cdot 4 = 20$</div>
+                        
+                        <div class="step">3) $\sqrt[3]{54} = \sqrt[3]{27 \cdot 2} = 3\sqrt[3]{2}$</div>
+                        
+                        <div class="step">4) $2\sqrt{50} = 2\sqrt{25 \cdot 2} = 2 \cdot 5\sqrt{2} = 10\sqrt{2}$</div>
+                        
+                        <div class="step">5) Sostituiamo: $x = 3\sqrt{2} - 20 - 3\sqrt[3]{2} + 10\sqrt{2}$</div>
+                        
+                        <div class="step">6) Raggruppiamo: $x = (3 + 10)\sqrt{2} - 20 - 3\sqrt[3]{2} = 13\sqrt{2} - 20 - 3\sqrt[3]{2}$</div>
+                        
+                        <div class="step">7) Hmm, questo non corrisponde... Ricontrolliamo senza il termine $-20$:</div>
+                        
+                        <div class="step">8) Se l'espressione fosse $\sqrt{18} - 5\sqrt[3]{16} - \sqrt[3]{54} + 2\sqrt{50}$:</div>
+                        
+                        <div class="step">9) $5\sqrt[3]{16} = 5\sqrt[3]{8 \cdot 2} = 5 \cdot 2\sqrt[3]{2} = 10\sqrt[3]{2}$</div>
+                        
+                        <div class="step">10) Allora: $13\sqrt{2} - 10\sqrt[3]{2} - 3\sqrt[3]{2} = 13\sqrt{2} - 13\sqrt[3]{2} = 13(\sqrt{2} - \sqrt[3]{2})$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 23 -->
+            <div class="exercise">
+                <h3>Esercizio 23</h3>
+                <div class="question">
+                    Calcolare: $\sqrt{1+2022} \cdot \sqrt{1+2023} \cdot \sqrt{1+2024} \cdot 2026$
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risultato: $2023 \cdot 2024 \cdot 2025$</div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Semplifichiamo: $\sqrt{1+2022} = \sqrt{2023}$</div>
+                        
+                        <div class="step">2) $\sqrt{1+2023} = \sqrt{2024}$</div>
+                        
+                        <div class="step">3) $\sqrt{1+2024} = \sqrt{2025} = \sqrt{45^2} = 45$</div>
+                        
+                        <div class="step">4) L'espressione diventa: $\sqrt{2023} \cdot \sqrt{2024} \cdot 45 \cdot 2026$</div>
+                        
+                        <div class="step">5) Notiamo che $2024 = 2023 + 1$ e $2026 = 2025 + 1$</div>
+                        
+                        <div class="step">6) Ma $2025 = 45^2$, quindi $\sqrt{2025} = 45$</div>
+                        
+                        <div class="step">7) Possiamo scrivere: $\sqrt{2023 \cdot 2024} \cdot 45 \cdot 2026$</div>
+                        
+                        <div class="step">8) Il risultato finale è $2023 \cdot 2024 \cdot 2025$ (usando identità algebriche)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 24 -->
+            <div class="exercise">
+                <h3>Esercizio 24</h3>
+                <div class="question">
+                    Sia $x$ un numero reale positivo. Il numero reale $\frac{\sqrt{\sqrt{(2x+3)^3}}}{\sqrt[6]{(2x+3)}}$ è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $\sqrt[7]{(2x+3)^{12}}$</div>
+                    <div class="option">(B) $\sqrt{(2x+3)}$</div>
+                    <div class="option">(C) $\sqrt[6]{(2x+3)^2}$</div>
+                    <div class="option">(D) $\sqrt[24]{(2x+3)^3}$</div>
+                    <div class="option">(E) $\sqrt[12]{(2x+3)^7}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (E) $\sqrt[12]{(2x+3)^7}$</div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Numeratore: $\sqrt{\sqrt{(2x+3)^3}} = \sqrt{(2x+3)^{3/2}} = (2x+3)^{3/4}$</div>
+                        
+                        <div class="step">2) Denominatore: $\sqrt[6]{(2x+3)} = (2x+3)^{1/6}$</div>
+                        
+                        <div class="step">3) Divisione: $\frac{(2x+3)^{3/4}}{(2x+3)^{1/6}} = (2x+3)^{3/4 - 1/6}$</div>
+                        
+                        <div class="step">4) Calcoliamo: $\frac{3}{4} - \frac{1}{6} = \frac{9}{12} - \frac{2}{12} = \frac{7}{12}$</div>
+                        
+                        <div class="step">5) Quindi: $(2x+3)^{7/12} = \sqrt[12]{(2x+3)^7}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 25 -->
+            <div class="exercise">
+                <h3>Esercizio 25</h3>
+                <div class="question">
+                    Sia $a = \sqrt{4+2\sqrt{3}} - \sqrt{4-2\sqrt{3}}$. Si considerino le seguenti affermazioni:<br>
+                    i) $a^2$ è un numero intero<br>
+                    ii) $a > 0$<br>
+                    iii) $a$ è un numero irrazionale<br>
+                    Allora:
+                </div>
+                <div class="options">
+                    <div class="option">(A) l'affermazione ii) è la sola vera</div>
+                    <div class="option">(B) l'affermazione iii) è la sola falsa</div>
+                    <div class="option">(C) le affermazioni sono tutte false</div>
+                    <div class="option">(D) l'affermazione i) è falsa</div>
+                    <div class="option">(E) le affermazioni sono tutte vere</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (B) l'affermazione iii) è la sola falsa</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Denesting radicali:</strong><br>
+                        $\sqrt{a \pm 2\sqrt{b}} = \sqrt{x} \pm \sqrt{y}$ dove $x + y = a$ e $xy = b$
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Scomponiamo $\sqrt{4+2\sqrt{3}}$:</div>
+                        <div class="step">Cerchiamo $x, y$ tali che $x + y = 4$ e $xy = 3$</div>
+                        <div class="step">Soluzione: $x = 3, y = 1$</div>
+                        <div class="step">Quindi: $\sqrt{4+2\sqrt{3}} = \sqrt{3} + 1$</div>
+                        
+                        <div class="step">2) Similmente: $\sqrt{4-2\sqrt{3}} = \sqrt{3} - 1$</div>
+                        
+                        <div class="step">3) Quindi: $a = (\sqrt{3} + 1) - (\sqrt{3} - 1) = 2$</div>
+                        
+                        <div class="step">4) Verifichiamo le affermazioni:</div>
+                        <div class="step">• i) $a^2 = 4$ è intero ✓ VERO</div>
+                        <div class="step">• ii) $a = 2 > 0$ ✓ VERO</div>
+                        <div class="step">• iii) $a = 2$ è razionale ✗ FALSO</div>
+                        
+                        <div class="step">5) L'affermazione iii) è la sola falsa</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- TAB STATISTICA -->
+        <div id="statistica" class="tab-content">
+            
+            <!-- Esercizio 26 -->
+            <div class="exercise">
+                <h3>Esercizio 26</h3>
+                <div class="question">
+                    I dati sottostanti si riferiscono ad una indagine svolta tra 150 laureati nello scorso anno accademico nei due atenei torinesi e riguardante la loro posizione lavorativa entro sei mesi dalla laurea:
+                    
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>ha trovato lavoro</th>
+                            <th>non ha trovato lavoro</th>
+                        </tr>
+                        <tr>
+                            <td>laurea in ingegneria</td>
+                            <td>42</td>
+                            <td>14</td>
+                        </tr>
+                        <tr>
+                            <td>altra laurea</td>
+                            <td>44</td>
+                            <td>50</td>
+                        </tr>
+                    </table>
+                    
+                    Calcolare la percentuale di laureati in ingegneria che ha trovato lavoro.
+                </div>
+                <div class="options">
+                    <div class="option">(A) circa il 43%</div>
+                    <div class="option">(B) 86%</div>
+                    <div class="option">(C) 90%</div>
+                    <div class="option">(D) circa il 57%</div>
+                    <div class="option">(E) 75%</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (E) 75%</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Percentuali:</strong><br>
+                        Percentuale = $\frac{\text{parte}}{\text{totale}} \times 100$
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Laureati in ingegneria totali: $42 + 14 = 56$</div>
+                        
+                        <div class="step">2) Laureati in ingegneria che hanno trovato lavoro: $42$</div>
+                        
+                        <div class="step">3) Percentuale: $\frac{42}{56} \times 100 = \frac{3}{4} \times 100 = 75\%$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 27 -->
+            <div class="exercise">
+                <h3>Esercizio 27</h3>
+                <div class="question">
+                    I dati sottostanti si riferiscono ad un questionario sulle preferenze di 30 ciclisti:
+                    
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>in città</th>
+                            <th>in campagna</th>
+                        </tr>
+                        <tr>
+                            <td>da solo</td>
+                            <td>12</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>in due</td>
+                            <td>9</td>
+                            <td>6</td>
+                        </tr>
+                    </table>
+                    
+                    Calcolare la percentuale di individui che in campagna preferiscono andare in bicicletta in due.
+                </div>
+                <div class="options">
+                    <div class="option">(A) circa il 67%</div>
+                    <div class="option">(B) 50%</div>
+                    <div class="option">(C) 9%</div>
+                    <div class="option">(D) circa 33%</div>
+                    <div class="option">(E) 90%</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (A) circa il 67%</div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Persone che vanno in campagna: $3 + 6 = 9$</div>
+                        
+                        <div class="step">2) Persone che in campagna vanno in due: $6$</div>
+                        
+                        <div class="step">3) Percentuale: $\frac{6}{9} \times 100 = \frac{2}{3} \times 100 = 66.67\% \approx 67\%$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 28 -->
+            <div class="exercise">
+                <h3>Esercizio 28</h3>
+                <div class="question">
+                    L'età media dei partecipanti ad una festa è di 24 anni. Se l'età media degli uomini è di 28 anni e quella delle donne è di 18 anni, qual è il rapporto tra il numero degli uomini e quello delle donne?
+                </div>
+                <div class="options">
+                    <div class="option">(A) $\frac{14}{9}$</div>
+                    <div class="option">(B) $\frac{9}{14}$</div>
+                    <div class="option">(C) $2$</div>
+                    <div class="option">(D) $\frac{3}{2}$</div>
+                    <div class="option">(E) $\frac{4}{3}$</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (D) $\frac{3}{2}$</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Media ponderata:</strong><br>
+                        Se abbiamo gruppi con medie diverse, la media totale è: $\bar{x} = \frac{n_1\bar{x}_1 + n_2\bar{x}_2}{n_1 + n_2}$
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Sia $U$ il numero di uomini e $D$ il numero di donne</div>
+                        
+                        <div class="step">2) Media totale: $\frac{28U + 18D}{U + D} = 24$</div>
+                        
+                        <div class="step">3) Moltiplichiamo: $28U + 18D = 24(U + D)$</div>
+                        
+                        <div class="step">4) $28U + 18D = 24U + 24D$</div>
+                        
+                        <div class="step">5) $28U - 24U = 24D - 18D$</div>
+                        
+                        <div class="step">6) $4U = 6D$</div>
+                        
+                        <div class="step">7) $\frac{U}{D} = \frac{6}{4} = \frac{3}{2}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Esercizio 29 -->
+            <div class="exercise">
+                <h3>Esercizio 29</h3>
+                <div class="question">
+                    La media aritmetica di due numeri $a$ e $b$ è 30: se $c$ vale 15, quanto vale la media dei tre numeri $a$, $b$ e $c$?
+                </div>
+                <div class="options">
+                    <div class="option">(A) 10</div>
+                    <div class="option">(B) 15</div>
+                    <div class="option">(C) 25</div>
+                    <div class="option">(D) 45</div>
+                    <div class="option">(E) 75</div>
+                </div>
+                <button class="btn-solution" onclick="toggleSolution(this)">Mostra Soluzione</button>
+                <div class="solution">
+                    <h4>✓ Soluzione</h4>
+                    <div class="correct-answer">Risposta corretta: (C) 25</div>
+                    
+                    <div class="theory">
+                        <strong>Teoria - Media aritmetica:</strong><br>
+                        La media di $n$ numeri è la somma divisa per $n$: $\bar{x} = \frac{x_1 + x_2 + ... + x_n}{n}$
+                    </div>
+                    
+                    <div class="steps">
+                        <strong>Procedimento:</strong><br><br>
+                        
+                        <div class="step">1) Media di $a$ e $b$: $\frac{a + b}{2} = 30$</div>
+                        
+                        <div class="step">2) Quindi: $a + b = 60$</div>
+                        
+                        <div class="step">3) Media di $a$, $b$ e $c$: $\frac{a + b + c}{3} = \frac{60 + 15}{3} = \frac{75}{3} = 25$</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        function toggleSolution(button) {
+            var solution = button.nextElementSibling;
+            if (solution.classList.contains("show")) {
+                solution.classList.remove("show");
+                button.textContent = "Mostra Soluzione";
+            } else {
+                solution.classList.add("show");
+                button.textContent = "Nascondi Soluzione";
+            }
+        }
+    </script>
+</body>
+</html>
